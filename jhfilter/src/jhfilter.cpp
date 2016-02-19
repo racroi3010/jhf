@@ -18,7 +18,7 @@ int main() {
 	cv::imshow("", img);
 	while(1)
 	{
-		if(cv::waitKey(30) == 27) break;
+		if(cv::waitKey(10) == 27) break;
 	}
 
 	return 0;
