@@ -44,7 +44,7 @@
 									<listOptionValue builtIn="false" value="opencv_imgproc2411.dll"/>
 									<listOptionValue builtIn="false" value="opencv_highgui2411.dll"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1605499978" superClass="gnu.cpp.link.option.flags" value="-static" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1605499978" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-static" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1088142773" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

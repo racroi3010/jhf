@@ -13,7 +13,8 @@ int main() {
 	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 
 	//getchar();
-	cv::Mat img = cv::imread("D:/iu.filter.jpg");
+	cv::Mat img = cv::imread("D:\\iu_filter.jpg");
+	//cv::Mat img = cv::Mat::zeros(256, 256, CV_8UC3);
 	cv::imshow("", img);
 	while(1)
 	{
