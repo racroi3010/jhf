@@ -4,8 +4,8 @@ class TransferFilter :
 	public PointFilter
 {
 public:
-	TransferFilter(void);
-	~TransferFilter(void);
+	TransferFilter();
+	~TransferFilter();
 
 protected:
 	int * rTable, * gTable, * bTable;

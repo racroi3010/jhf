@@ -2,13 +2,13 @@
 #include "PointFilter.h"
 
 
-PointFilter::PointFilter(void)
+PointFilter::PointFilter()
 {
 	canFilterIndexColorModel = false;
 }
 
 
-PointFilter::~PointFilter(void)
+PointFilter::~PointFilter()
 {
 }
 

@@ -4,8 +4,8 @@ class PointFilter :
 	public BaseFilter
 {
 public:
-	PointFilter(void);
-	~PointFilter(void);
+	PointFilter();
+	virtual ~PointFilter();
 
 protected:
 	cv::Mat filter(cv::Mat image);

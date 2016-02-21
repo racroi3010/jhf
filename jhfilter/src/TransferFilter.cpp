@@ -2,14 +2,14 @@
 #include "TransferFilter.h"
 
 
-TransferFilter::TransferFilter(void)
+TransferFilter::TransferFilter()
 {
 	initialized = false;
 
 }
 
 
-TransferFilter::~TransferFilter(void)
+TransferFilter::~TransferFilter()
 {
 	delete [] rTable;
 	delete [] gTable;
