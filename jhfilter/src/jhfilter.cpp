@@ -13,6 +13,7 @@
 #include "HSBAdjustFilter.h"
 #include "ContrastFilter.h"
 #include "LevelsFilter.h"
+#include "GrayscaleFilter.h"
 
 void nativeCurvesFilter(cv::Mat image)
 {
@@ -101,6 +102,14 @@ void nativeLevelsFilter(cv::Mat image)
 
 	cv::imshow("", out);
 }
+void nativeGrayscaleFilter(cv::Mat image)
+{
+	GrayscaleFilter filter;
+
+	cv::Mat out = filter.filter(image);
+
+	cv::imshow("", out);
+}
 int main() {
 	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 
@@ -109,7 +118,8 @@ int main() {
 	//nativeCurvesFilter(img);
 	//nativeHSBAdjustFilter(img);
 	//nativeContrastFilter(img);
-	nativeLevelsFilter(img);
+	//nativeLevelsFilter(img);
+	nativeGrayscaleFilter(img);
 
 	//cv::Mat img = cv::Mat::zeros(256, 256, CV_8UC3);
 	cv::imshow("org", img);
