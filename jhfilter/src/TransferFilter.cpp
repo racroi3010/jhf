@@ -50,7 +50,3 @@ int * TransferFilter::makeTable()
 	}
 	return table;
 }
-float TransferFilter::transferFunction(float v)
-{
-	return 0;
-}

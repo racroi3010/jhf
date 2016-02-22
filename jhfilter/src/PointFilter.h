@@ -9,6 +9,7 @@ public:
 
 protected:
 	cv::Mat filter(cv::Mat image);
+	virtual cv::Vec3b filterBGR(cv::Vec3b pixel) = 0;
 	bool canFilterIndexColorModel;
 
 };

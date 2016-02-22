@@ -63,3 +63,7 @@ cv::Mat CurvesFilter::filter(cv::Mat image)
 	}
 	return TransferFilter::filter(image);
 }
+float CurvesFilter::transferFunction(float f)
+{
+	return 0.0f;
+}

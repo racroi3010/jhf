@@ -14,11 +14,11 @@ public:
 	ColorUtils();
 	virtual ~ColorUtils();
 
-	static cv::Vec3b RGB2HSV(cv::Vec3b rgb);
-	static cv::Vec3b HSV2RGB(cv::Vec3b hsv);
+	static cv::Vec3f RGB2HSV(cv::Vec3b rgb);
+	static cv::Vec3b HSV2RGB(cv::Vec3f hsv);
 
-	static cv::Vec3b BGR2HSV(cv::Vec3b bgr);
-	static cv::Vec3b HSV2BGR(cv::Vec3b hsv);
+	static cv::Vec3f BGR2HSV(cv::Vec3b bgr);
+	static cv::Vec3b HSV2BGR(cv::Vec3f hsv);
 
 };
 

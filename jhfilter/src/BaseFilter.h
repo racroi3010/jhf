@@ -10,6 +10,6 @@ public:
 	~BaseFilter(void);
 protected:
 	virtual cv::Mat filter(cv::Mat image) = 0;
-	virtual cv::Vec3b filterBGR(cv::Vec3b pixel) = 0;
+
 };
 

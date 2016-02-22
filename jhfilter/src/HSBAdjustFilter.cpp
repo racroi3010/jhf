@@ -47,7 +47,7 @@ void HSBAdjustFilter::setSFactor(float factor) {
 }
 cv::Vec3b HSBAdjustFilter::filterBGR(cv::Vec3b pixel)
 {
-	cv::Vec3b hsv = ColorUtils::BGR2HSV(pixel);
+	cv::Vec3f hsv = ColorUtils::BGR2HSV(pixel);
 
 	hsv[0] += hFactor;
 	while(hsv[0] < 0)
@@ -55,11 +55,11 @@ cv::Vec3b HSBAdjustFilter::filterBGR(cv::Vec3b pixel)
 		hsv[0] += PI*2;
 	}
 
-	hsv[1] += sFactor * 255.0f;
-	hsv[1] = hsv[1] < 0 ? 0.0f : (hsv[1] > 255.0f ? 255.0f : hsv[1]);
+	hsv[1] += sFactor;
+	hsv[1] = hsv[1] < 0 ? 0.0f : (hsv[1] > 1.0f ? 1.0f : hsv[1]);
 
-	hsv[2] += bFactor * 255.0f;
-	hsv[2] = hsv[2] < 0 ? 0.0f : (hsv[2] > 255.0f ? 255.0f : hsv[2]);
+	hsv[2] += bFactor;
+	hsv[2] = hsv[2] < 0 ? 0.0f : (hsv[2] > 1.0f ? 1.0f : hsv[2]);
 
 	return ColorUtils::HSV2BGR(hsv);
 }

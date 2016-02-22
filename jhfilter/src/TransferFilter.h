@@ -6,16 +6,16 @@ class TransferFilter :
 public:
 	TransferFilter();
 	~TransferFilter();
-
+	cv::Mat filter(cv::Mat image);
 protected:
 	int * rTable, * gTable, * bTable;
 	bool initialized;
 
 	cv::Vec3b filterBGR(cv::Vec3b pixel);
-	cv::Mat filter(cv::Mat image);
+
 
 	void initialize();
 	int * makeTable();
-	float transferFunction(float v);
+	virtual float transferFunction(float v) = 0;
 };
 

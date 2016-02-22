@@ -14,7 +14,7 @@ public:
 	void setCurves(Curve * curve, int length);
 	Curve * getCurves();
 	cv::Mat filter(cv::Mat image);
-
+	float transferFunction(float f);
 private:
 	Curve * curves;
 	int length;

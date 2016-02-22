@@ -11,6 +11,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "CurvesFilter.h"
 #include "HSBAdjustFilter.h"
+#include "ContrastFilter.h"
+#include "LevelsFilter.h"
 
 void nativeCurvesFilter(cv::Mat image)
 {
@@ -77,14 +79,37 @@ void nativeHSBAdjustFilter(cv::Mat image)
 
 	cv::imshow("", out);
 }
+void nativeContrastFilter(cv::Mat image)
+{
+	ContrastFilter filter;
+	filter.setBrightness(1.2f);
+	filter.setContrast(1.1f);
+
+	cv::Mat out = filter.filter(image);
+
+	cv::imshow("", out);
+}
+void nativeLevelsFilter(cv::Mat image)
+{
+	LevelsFilter filter;
+	float highLevelValue = (237 * 100 / 255) * 100 / 100;
+
+	filter.setHighLevel(highLevelValue/50.0f);
+	filter.setLowLevel(0.1f);
+
+	cv::Mat out = filter.filter(image);
+
+	cv::imshow("", out);
+}
 int main() {
 	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 
 	//getchar();
-	cv::Mat img = cv::imread("/home/my/Pictures/iu.jpg");
+	cv::Mat img = cv::imread("D:/iu_filter.jpg");
 	//nativeCurvesFilter(img);
-	nativeHSBAdjustFilter(img);
-
+	//nativeHSBAdjustFilter(img);
+	//nativeContrastFilter(img);
+	nativeLevelsFilter(img);
 
 	//cv::Mat img = cv::Mat::zeros(256, 256, CV_8UC3);
 	cv::imshow("org", img);

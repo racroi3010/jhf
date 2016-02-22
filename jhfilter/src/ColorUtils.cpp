@@ -15,7 +15,7 @@ ColorUtils::ColorUtils() {
 ColorUtils::~ColorUtils() {
 	// TODO Auto-generated destructor stub
 }
-cv::Vec3b ColorUtils::RGB2HSV(cv::Vec3b rgb)
+cv::Vec3f ColorUtils::RGB2HSV(cv::Vec3b rgb)
 {
 	float r = (float)rgb[0]/255.0f;
 	float g = (float)rgb[1]/255.0f;
@@ -42,17 +42,21 @@ cv::Vec3b ColorUtils::RGB2HSV(cv::Vec3b rgb)
 
 	H = H < 0.0f ? H + 360.0f : H;
 
-	V *= 255.0f;
-	S *= 255.0f;
-	H /= 2.0f;
+//	V *= 255.0f;
+//	S *= 255.0f;
+//	H /= 2.0f;
 
-	return cv::Vec3b(H, S, V);
+	return cv::Vec3f(H, S, V);
 }
-cv::Vec3b ColorUtils::HSV2RGB(cv::Vec3b hsv)
+cv::Vec3b ColorUtils::HSV2RGB(cv::Vec3f hsv)
 {
-	float H = hsv[0] * 2;
-	float S = (float)hsv[1]/255.0f;
-	float V = (float)hsv[2]/255.0f;
+//	float H = hsv[0] * 2;
+//	float S = (float)hsv[1]/255.0f;
+//	float V = (float)hsv[2]/255.0f;
+
+	float H = hsv[0];
+	float S = hsv[1];
+	float V = hsv[2];
 
 	float C = V * S;
 	float X = C * (1 - (float)std::abs(((int)H/60)%2 - 1.0f));
@@ -93,11 +97,12 @@ cv::Vec3b ColorUtils::HSV2RGB(cv::Vec3b hsv)
 
 	return cv::Vec3b(R, G, B);
 }
-cv::Vec3b ColorUtils::BGR2HSV(cv::Vec3b bgr)
+cv::Vec3f ColorUtils::BGR2HSV(cv::Vec3b bgr)
 {
 	float r = (float)bgr[2]/255.0f;
 	float g = (float)bgr[1]/255.0f;
 	float b = (float)bgr[0]/255.0f;
+
 
 	float max = std::max(r, std::max(g, b));
 	float min = std::min(r, std::min(g, b));
@@ -120,17 +125,20 @@ cv::Vec3b ColorUtils::BGR2HSV(cv::Vec3b bgr)
 
 	H = H < 0.0f ? H + 360.0f : H;
 
-	V *= 255.0f;
-	S *= 255.0f;
-	H /= 2.0f;
+//	V *= 255.0f;
+//	S *= 255.0f;
+//	H /= 2.0f;
 
-	return cv::Vec3b(H, S, V);
+	return cv::Vec3f(H, S, V);
 }
-cv::Vec3b ColorUtils::HSV2BGR(cv::Vec3b hsv)
+cv::Vec3b ColorUtils::HSV2BGR(cv::Vec3f hsv)
 {
-	float H = hsv[0] * 2;
-	float S = (float)hsv[1]/255.0f;
-	float V = (float)hsv[2]/255.0f;
+//	float H = hsv[0] * 2;
+//	float S = (float)hsv[1]/255.0f;
+//	float V = (float)hsv[2]/255.0f;
+	float H = hsv[0];
+	float S = hsv[1];
+	float V = hsv[2];
 
 	float C = V * S;
 	float X = C * (1 - (float)std::abs(((int)H/60)%2 - 1));
