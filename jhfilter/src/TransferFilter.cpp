@@ -16,25 +16,24 @@ TransferFilter::~TransferFilter()
 	delete [] bTable;
 }
 
-cv::Vec3b TransferFilter::filterBGR(cv::Vec3b pixel)
+int TransferFilter::filterRGB(int rgb)
 {
-	int r = pixel[2];
-	int g = pixel[1];
-	int b = pixel[0];
-
+	int a = rgb & 0xff000000;
+	int r = (rgb >> 16) & 0xff;
+	int g = (rgb >> 8) & 0xff;
+	int b = rgb & 0xff;
 	r = rTable[r];
 	g = gTable[g];
 	b = bTable[b];
-
-	return cv::Vec3b(b, g, r);
+	return a | (r << 16) | (g << 8) | b;
 }
-cv::Mat TransferFilter::filter(cv::Mat image)
+int * TransferFilter::filter(int * src, int width, int height)
 {
 	if(!initialized)
 	{
 		initialize();
 	}
-	return PointFilter::filter(image);
+	return PointFilter::filter(src, width, height);
 }
 void TransferFilter::initialize()
 {

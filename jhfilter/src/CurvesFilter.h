@@ -13,7 +13,7 @@ public:
 	void setCurve(Curve curve);
 	void setCurves(Curve * curve, int length);
 	Curve * getCurves();
-	cv::Mat filter(cv::Mat image);
+	int * filter(int * src, int width, int height);
 	float transferFunction(float f);
 private:
 	Curve * curves;

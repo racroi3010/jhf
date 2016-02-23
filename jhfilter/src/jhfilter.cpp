@@ -15,7 +15,42 @@
 #include "LevelsFilter.h"
 #include "GrayscaleFilter.h"
 
-void nativeCurvesFilter(cv::Mat image)
+int * convertMat2RGBArray(cv::Mat image)
+{
+	int width = image.cols;
+	int height = image.rows;
+
+	int * rgbArrays = new int[width * height];
+	int x, y, i, r, g, b;
+	for(y = 0; y < height; y ++)
+		for(x = 0; x < width; x ++)
+		{
+			i = y * width + x;
+			b = image.data[image.channels() * i ];
+			g = image.data[image.channels() * i + 1];
+			r = image.data[image.channels() * i + 2];
+			rgbArrays[i] = r << 16 | g << 8 | b;
+		}
+	return rgbArrays;
+}
+cv::Mat convertRGBArray2Mat(int * src, int width, int height)
+{
+	cv::Mat out(height, width, CV_8UC3);
+	int x, y, i, rgb;
+	for(y = 0; y < height; y ++)
+		for(x = 0; x < width; x ++)
+		{
+			i = y * width + x;
+			rgb = src[i];
+			out.at<cv::Vec3b>(y, x)[0] = rgb & 0xff;
+			out.at<cv::Vec3b>(y, x)[1] = (rgb >> 8) & 0xff;
+			out.at<cv::Vec3b>(y, x)[2] = (rgb >> 16) & 0xff;
+
+		}
+	delete [] src;
+	return out;
+}
+void nativeCurvesFilter(int * src, int width, int height)
 {
 	CurvesFilter curvesFilter;
 	Curve curves[3];
@@ -62,64 +97,71 @@ void nativeCurvesFilter(cv::Mat image)
     curvesFilter.setCurves(&curves[0], 3);
 
 
-    cv::Mat out = curvesFilter.filter(image);
+   	int * out = curvesFilter.filter(src, width, height);
 
-    cv::imshow("", out);
+
+
+    cv::imshow("", convertRGBArray2Mat(out, width, height));
 
     delete [] x;
     delete [] y;
 }
 
-void nativeHSBAdjustFilter(cv::Mat image)
-{
-	HSBAdjustFilter filter;
-	filter.setSFactor(-0.03f);
-	filter.setBFactor(0.01f);
+//void nativeHSBAdjustFilter(cv::Mat image)
+//{
+//	HSBAdjustFilter filter;
+//	filter.setSFactor(-0.03f);
+//	filter.setBFactor(0.01f);
+//
+//	cv::Mat out = filter.filter(image);
+//
+//	cv::imshow("", out);
+//}
+//void nativeContrastFilter(cv::Mat image)
+//{
+//	ContrastFilter filter;
+//	filter.setBrightness(1.2f);
+//	filter.setContrast(1.1f);
+//
+//	cv::Mat out = filter.filter(image);
+//
+//	cv::imshow("", out);
+//}
+//void nativeLevelsFilter(cv::Mat image)
+//{
+//	LevelsFilter filter;
+//	float highLevelValue = (237 * 100 / 255) * 100 / 100;
+//
+//	filter.setHighLevel(highLevelValue/50.0f);
+//	filter.setLowLevel(0.1f);
+//
+//	cv::Mat out = filter.filter(image);
+//
+//	cv::imshow("", out);
+//}
+//void nativeGrayscaleFilter(cv::Mat image)
+//{
+//	GrayscaleFilter filter;
+//
+//	cv::Mat out = filter.filter(image);
+//
+//	cv::imshow("", out);
+//}
 
-	cv::Mat out = filter.filter(image);
-
-	cv::imshow("", out);
-}
-void nativeContrastFilter(cv::Mat image)
-{
-	ContrastFilter filter;
-	filter.setBrightness(1.2f);
-	filter.setContrast(1.1f);
-
-	cv::Mat out = filter.filter(image);
-
-	cv::imshow("", out);
-}
-void nativeLevelsFilter(cv::Mat image)
-{
-	LevelsFilter filter;
-	float highLevelValue = (237 * 100 / 255) * 100 / 100;
-
-	filter.setHighLevel(highLevelValue/50.0f);
-	filter.setLowLevel(0.1f);
-
-	cv::Mat out = filter.filter(image);
-
-	cv::imshow("", out);
-}
-void nativeGrayscaleFilter(cv::Mat image)
-{
-	GrayscaleFilter filter;
-
-	cv::Mat out = filter.filter(image);
-
-	cv::imshow("", out);
-}
 int main() {
 	std::cout << "!!!Hello World!!!" << std::endl; // prints !!!Hello World!!!
 
 	//getchar();
 	cv::Mat img = cv::imread("D:/iu_filter.jpg");
-	//nativeCurvesFilter(img);
+
+	int * src = convertMat2RGBArray(img);
+
+	nativeCurvesFilter(src, img.cols, img.rows);
 	//nativeHSBAdjustFilter(img);
 	//nativeContrastFilter(img);
 	//nativeLevelsFilter(img);
-	nativeGrayscaleFilter(img);
+	//nativeGrayscaleFilter(img);
+
 
 	//cv::Mat img = cv::Mat::zeros(256, 256, CV_8UC3);
 	cv::imshow("org", img);

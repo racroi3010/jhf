@@ -1,4 +1,6 @@
-
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "CurvesFilter.h"
 
 
@@ -55,13 +57,13 @@ Curve * CurvesFilter::getCurves()
 {
 	return this->curves;
 }
-cv::Mat CurvesFilter::filter(cv::Mat image)
+int * CurvesFilter::filter(int *src, int width, int height)
 {
 	if(!initialized)
 	{
 		initialize();
 	}
-	return TransferFilter::filter(image);
+	return TransferFilter::filter(src, width, height);
 }
 float CurvesFilter::transferFunction(float f)
 {

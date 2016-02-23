@@ -50,15 +50,12 @@ float LevelsFilter::getLowOutputLevel() const {
 void LevelsFilter::setLowOutputLevel(float lowOutputLevel) {
 	this->lowOutputLevel = lowOutputLevel;
 }
-cv::Mat LevelsFilter::filter(cv::Mat image)
+int * LevelsFilter::filter(int * src, int width, int height)
 {
-	return WholeImageFilter::filter(image);
+	return WholeImageFilter::filter(src, width, height);
 }
-cv::Mat LevelsFilter::filterPixels(cv::Mat image, cv::Rect transformedSpace)
+int * LevelsFilter::filterPixels(int * src, int width, int height, Rect transformedSpace)
 {
-	int width = image.cols;
-	int height = image.rows;
-
 	int i, j;
 	if(width * height > 0){
 		lut = new int*[3];
@@ -79,50 +76,39 @@ cv::Mat LevelsFilter::filterPixels(cv::Mat image, cv::Rect transformedSpace)
 	}
 	else
 	{
-		lut = NULL;
+		lut = 0;
 	}
 	int x, y;
-	cv::Vec3b pixel, filteredPixel;
-	cv::Vec3b* rowBGR = 0, * rowBGRout = 0;
-	cv::Mat outImage = cv::Mat::zeros(image.size(), image.type());
+	int * out = new int[width * height];
 	for(y = 0; y < height; y ++)
-	{
-		rowBGR = image.ptr<cv::Vec3b>(y);
-		rowBGRout = outImage.ptr<cv::Vec3b>(y);
 		for(x = 0; x < width; x ++)
 		{
-			pixel = rowBGR[x];
+			i = y * width + x;
+			out[i] = filterRGB(src[i]);
 
-			filteredPixel = filterBGR(pixel);
-
-			for(i = 0; i < 3; i ++)
-			{
-				rowBGRout[x][i] = filteredPixel[i];
-
-			}
 		}
-
-	}
 	for(i = 0; i < 3; i ++){
 		delete [] lut[i];
 	}
 	delete [] lut;
 
-	return outImage;
+	return out;
 }
-cv::Vec3b LevelsFilter::filterBGR(cv::Vec3b bgr)
+int LevelsFilter::filterRGB(int rgb)
 {
-	if(lut != NULL)
+	if(lut)
 	{
-		int r = lut[0][bgr[2]];
-		int g = lut[0][bgr[1]];
-		int b = lut[0][bgr[0]];
-		return cv::Vec3b(b, g, r);
+		int a = rgb & 0xff000000;
+		int r = lut[0][(rgb >> 16) & 0xff];
+		int g = lut[1][(rgb >> 8) & 0xff];
+		int b = lut[2][rgb & 0xff];
+
+		return a | (r << 16) | (g << 8) | b;
 	}
-	return bgr;
+	return rgb;
 
 }
-void LevelsFilter::transformRect(cv::Rect rect)
+void LevelsFilter::transformRect(Rect rect)
 {
 
 }

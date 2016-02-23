@@ -15,11 +15,11 @@ public:
 	LevelsFilter();
 	virtual ~LevelsFilter();
 
-	cv::Mat filter(cv::Mat image);
+	int * filter(int * src, int width, int height);
 
-	cv::Mat filterPixels(cv::Mat, cv::Rect);
-	cv::Vec3b filterBGR(cv::Vec3b);
-	void transformRect(cv::Rect rect);
+	int * filterPixels(int * src, int width, int height, Rect);
+	int filterRGB(int rgb);
+	void transformRect(Rect rect);
 
 	float getHighLevel() const;
 	void setHighLevel(float highLevel);

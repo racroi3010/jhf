@@ -45,26 +45,27 @@ float HSBAdjustFilter::getSFactor() const {
 void HSBAdjustFilter::setSFactor(float factor) {
 	sFactor = factor;
 }
-cv::Vec3b HSBAdjustFilter::filterBGR(cv::Vec3b pixel)
+int HSBAdjustFilter::filterBGR(int rgb)
 {
-	cv::Vec3f hsv = ColorUtils::BGR2HSV(pixel);
-
-	hsv[0] += hFactor;
-	while(hsv[0] < 0)
-	{
-		hsv[0] += PI*2;
-	}
-
-	hsv[1] += sFactor;
-	hsv[1] = hsv[1] < 0 ? 0.0f : (hsv[1] > 1.0f ? 1.0f : hsv[1]);
-
-	hsv[2] += bFactor;
-	hsv[2] = hsv[2] < 0 ? 0.0f : (hsv[2] > 1.0f ? 1.0f : hsv[2]);
-
-	return ColorUtils::HSV2BGR(hsv);
+//	cv::Vec3f hsv = ColorUtils::BGR2HSV(pixel);
+//
+//	hsv[0] += hFactor;
+//	while(hsv[0] < 0)
+//	{
+//		hsv[0] += PI*2;
+//	}
+//
+//	hsv[1] += sFactor;
+//	hsv[1] = hsv[1] < 0 ? 0.0f : (hsv[1] > 1.0f ? 1.0f : hsv[1]);
+//
+//	hsv[2] += bFactor;
+//	hsv[2] = hsv[2] < 0 ? 0.0f : (hsv[2] > 1.0f ? 1.0f : hsv[2]);
+//
+//	return ColorUtils::HSV2BGR(hsv);
+	return 0;
 }
-cv::Mat HSBAdjustFilter::filter(cv::Mat image)
+int * HSBAdjustFilter::filter(int * src, int width, int height)
 {
-	return PointFilter::filter(image);
+	return PointFilter::filter(src, width, height);
 }
 

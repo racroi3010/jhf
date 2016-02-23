@@ -6,12 +6,12 @@ class TransferFilter :
 public:
 	TransferFilter();
 	~TransferFilter();
-	cv::Mat filter(cv::Mat image);
+	int * filter(int * src, int width, int height);
 protected:
 	int * rTable, * gTable, * bTable;
 	bool initialized;
 
-	cv::Vec3b filterBGR(cv::Vec3b pixel);
+	int filterRGB(int rgb);
 
 
 	void initialize();

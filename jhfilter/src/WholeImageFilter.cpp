@@ -15,15 +15,12 @@ WholeImageFilter::WholeImageFilter() {
 WholeImageFilter::~WholeImageFilter() {
 	// TODO Auto-generated destructor stub
 }
-cv::Mat WholeImageFilter::filter(cv::Mat image)
+int * WholeImageFilter::filter(int * src, int width, int height)
 {
-	int width = image.cols;
-	int height = image.rows;
+	originalSpace = new Rect(0, 0, width, height);
+	transformedSpace = new Rect(0, 0, width, height);
 
-	originalSpace = cv::Rect(0, 0, width, height);
-	transformedSpace = cv::Rect(0, 0, width, height);
+	transformRect(*transformedSpace);
 
-	transformRect(transformedSpace);
-
-	return filterPixels(image, transformedSpace);
+	return filterPixels(src, width, height, *transformedSpace);
 }

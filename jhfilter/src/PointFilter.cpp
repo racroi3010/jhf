@@ -1,7 +1,5 @@
 
 #include "PointFilter.h"
-
-
 PointFilter::PointFilter()
 {
 	canFilterIndexColorModel = false;
@@ -12,34 +10,19 @@ PointFilter::~PointFilter()
 {
 }
 
-cv::Mat PointFilter::filter(cv::Mat image)
+int * PointFilter::filter(int * src, int width, int height)
 {
 	int x, y, i;
-	int width = image.cols;
-	int height = image.rows;
 
-	cv::Mat outImage = cv::Mat::zeros(image.size(), image.type());
+	int * out = new int[width * height];
 
-	cv::Vec3b pixel, filteredPixel;
-	cv::Vec3b* rowBGR = 0, * rowBGRout = 0;
 	for(y = 0; y < height; y ++)
-	{
-		rowBGR = image.ptr<cv::Vec3b>(y);
-		rowBGRout = outImage.ptr<cv::Vec3b>(y);
 		for(x = 0; x < width; x ++)
 		{
-			pixel = rowBGR[x];
-
-			filteredPixel = filterBGR(pixel);
-
-			for(i = 0; i < 3; i ++)
-			{
-				rowBGRout[x][i] = filteredPixel[i];
-
-			}
+			i = y * width + x;
+			out[i] = filterRGB(src[i]);
 		}
 
-	}
-	return outImage;
+	return out;
 
 }

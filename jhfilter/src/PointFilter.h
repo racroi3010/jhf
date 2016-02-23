@@ -8,8 +8,8 @@ public:
 	virtual ~PointFilter();
 
 protected:
-	cv::Mat filter(cv::Mat image);
-	virtual cv::Vec3b filterBGR(cv::Vec3b pixel) = 0;
+	int * filter(int * src, int width, int height);
+	virtual int filterRGB(int rgb) = 0;
 	bool canFilterIndexColorModel;
 
 };

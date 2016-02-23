@@ -15,8 +15,8 @@ public:
 	GrayscaleFilter();
 	virtual ~GrayscaleFilter();
 
-	cv::Mat filter(cv::Mat image);
-	cv::Vec3b filterBGR(cv::Vec3b pixel);
+	int * filter(int * src, int width, int height);
+	int filterRGB(int rgb);
 };
 
 #endif /* GRAYSCALEFILTER_H_ */

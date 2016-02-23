@@ -25,8 +25,8 @@ public:
 	float getBFactor() const;
 	void setBFactor(float factor);
 
-	cv::Vec3b filterBGR(cv::Vec3b pixel);
-	cv::Mat filter(cv::Mat image);
+	int filterBGR(int pixel);
+	int * filter(int * src, int width, int height);
 private:
 	float hFactor;
 	float sFactor;

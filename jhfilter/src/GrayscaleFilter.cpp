@@ -15,20 +15,17 @@ GrayscaleFilter::GrayscaleFilter() {
 GrayscaleFilter::~GrayscaleFilter() {
 	// TODO Auto-generated destructor stub
 }
-cv::Vec3b GrayscaleFilter::filterBGR(cv::Vec3b pixel)
+int GrayscaleFilter::filterRGB(int rgb)
 {
-//	int rgb = (pixel[2] * 77 + pixel[1] * 151 + pixel[0] * 28) >> 8;	// NTSC luma
-//
-//	int r = (rgb >> 16) & 0xff;
-//	int g = (rgb >> 8) & 0xff;
-//	int b = rgb & 0xff;
-
-//	return cv::Vec3b(b, g, r);
-
-	int gray = (pixel[0] + pixel[1] + pixel[2])/3;
-	return cv::Vec3b(gray, gray, gray);
+	int a = rgb & 0xff000000;
+	int r = (rgb >> 16) & 0xff;
+	int g = (rgb >> 8) & 0xff;
+	int b = rgb & 0xff;
+//		rgb = (r + g + b) / 3;	// simple average
+	rgb = (r * 77 + g * 151 + b * 28) >> 8;	// NTSC luma
+	return a | (rgb << 16) | (rgb << 8) | rgb;
 }
-cv::Mat GrayscaleFilter::filter(cv::Mat image)
+int * GrayscaleFilter::filter(int * src, int width, int height)
 {
-	return PointFilter::filter(image);
+	return PointFilter::filter(src, width, height);
 }

@@ -9,6 +9,7 @@
 #define WHOLEIMAGEFILTER_H_
 
 #include "BaseFilter.h"
+#include "Rect.h"
 
 class WholeImageFilter: public BaseFilter {
 public:
@@ -16,13 +17,13 @@ public:
 	virtual ~WholeImageFilter();
 
 protected:
-	cv::Mat filter(cv::Mat image);
+	int * filter(int * src, int width, int height);
 
-	virtual void transformRect(cv::Rect rect) = 0;
-	virtual cv::Mat filterPixels(cv::Mat image, cv::Rect transformedSpace) = 0;
+	virtual void transformRect(Rect rect) = 0;
+	virtual int * filterPixels(int * src, int width, int height, Rect transformedSpace) = 0;
 private:
-	cv::Rect transformedSpace;
-	cv::Rect originalSpace;
+	Rect * transformedSpace;
+	Rect * originalSpace;
 };
 
 #endif /* WHOLEIMAGEFILTER_H_ */
